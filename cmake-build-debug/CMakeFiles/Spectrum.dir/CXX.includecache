@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/Hesham/CLionProjects/Spectrum/Spectrum.h
+vector
+-
+
+/Users/Hesham/CLionProjects/Spectrum/main.cpp
+iostream
+-
+Spectrum.h
+/Users/Hesham/CLionProjects/Spectrum/Spectrum.h
+cmath
+-
+
