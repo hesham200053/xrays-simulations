@@ -98,24 +98,24 @@ void cSpectrum::readSpectrum(const string &fname, double tubeVoltage,
     char title[15];
     inp.read(title, 14);
     title[14] = 0;
-    cout << "title: " << title << endl;
+    // cout << "title: " << title << endl;
 
     // 2- length of the name Nn
     uint32_t Nn;
     inp.read((char*) &Nn, sizeof(Nn));
-    cout << "Nn: " << Nn << endl;
+    // cout << "Nn: " << Nn << endl;
 
     // 3- spectrum name
     char *charOfName = new char[Nn+1];
     inp.read(charOfName, Nn);
     charOfName[Nn] = 0;
     spectrumName = charOfName;
-    cout << "Name characters: " << charOfName << endl;
+    // cout << "Name characters: " << charOfName << endl;
 
     // 4- spectra number
     uint32_t Ns;
     inp.read((char*) &Ns, sizeof(Ns));
-    cout << "Ns: " << Ns << endl;
+    // cout << "Ns: " << Ns << endl;
 
     for (int i = 0 ; i < Ns ; i++) {
         float tVoltage;
@@ -146,6 +146,6 @@ void cSpectrum::readSpectrum(const string &fname, double tubeVoltage,
             inp.seekg(Nt * sizeof(tableEntry), ios_base::cur);
         }
     }
-    if (!valueFound) throw runtime_error("value couldn't be found");
 
+    if (!valueFound) throw runtime_error("value_couldn't_be_found");
 }
