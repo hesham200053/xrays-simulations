@@ -7,10 +7,25 @@
 #ifndef SPECTRUM_ATOMICDATA_H
 #define SPECTRUM_ATOMICDATA_H
 
+#include <vector>
+
+typedef struct {
+    float x;
+    float y;
+} tPoint2d;
 
 class cAtomicData {
-
+private:
+    // should the type def put here ?
+    static std::vector<tPoint2d> tcs[100];
+    static float A[100];
+    static bool prepared;
+public:
+    cAtomicData();
+//    ~cAtomicData();
+    void prepare();
+    double getStdAtomicWeight(unsigned Z);
+    double getTotalCrossSection(unsigned Z, double energy);
 };
-
 
 #endif //SPECTRUM_ATOMICDATA_H
