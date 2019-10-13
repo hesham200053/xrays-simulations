@@ -10,12 +10,11 @@ using namespace std;
 
 
 // static initializations .. is this right?
-std::vector<tPoint2d> cAtomicData::tcs[100] = {};
+vector<tPoint2d> cAtomicData::tcs[100] = {};
 float cAtomicData::A[100] = {};
 bool cAtomicData::prepared = false;
 
-cAtomicData::cAtomicData() {
-}
+cAtomicData::cAtomicData() = default;
 void cAtomicData::prepare() {
     if (prepared == true) return;
 
@@ -85,12 +84,9 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
 double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
     if (Z > 100 || Z < 1 ) throw runtime_error("atomic_number_out_range");
     vector<tPoint2d> values = tcs[Z - 1];
-    float sigma_k;
-    float sigma_k_plus_1;
-    float e_k;
-    float e_k_plus_1;
+    float sigma_k, sigma_k_plus_1, e_k, e_k_plus_1;
 
-    for(std::vector<tPoint2d>::size_type i = 0; i != values.size(); i++) {
+    for(vector<tPoint2d>::size_type i = 0; i != values.size(); i++) {
         if (energy > values[i].x) continue;
         e_k = values[i-1].x;
         sigma_k = values[i-1].y;
