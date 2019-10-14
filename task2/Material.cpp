@@ -72,8 +72,14 @@ double cMaterial::getAttCoeff(double energy) {
     return density * Na * (sum_sigK_fk/sum_ak_fk);
 }
 
+// preparing the attenuation spectrum after a specific material
 void cMaterial::getAttSpec(std::vector<double> &spec, double minEnergy, double tubeVoltage, unsigned energySteps) {
-
+    double step = (tubeVoltage - minEnergy) / energySteps;
+    double energy = minEnergy;
+    while ( energy < tubeVoltage ) {
+        spec.push_back(getAttCoeff(energy));
+        energy += step;
+    }
 }
 
 double cMaterial::getMeanFreePath(double energy) {

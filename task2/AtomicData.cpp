@@ -10,8 +10,8 @@ using namespace std;
 
 
 // static initializations .. is this right?
-vector<tPoint2d> cAtomicData::tcs[100] = {};
-float cAtomicData::A[100] = {};
+vector<tPoint2d> cAtomicData::tcs[100];
+float cAtomicData::A[100];
 bool cAtomicData::prepared = false;
 
 cAtomicData::cAtomicData() = default;
@@ -83,17 +83,18 @@ double cAtomicData::getStdAtomicWeight(unsigned Z) {
 
 double cAtomicData::getTotalCrossSection(unsigned Z, double energy) {
     if (Z > 100 || Z < 1 ) throw runtime_error("atomic_number_out_range");
-    vector<tPoint2d> values = tcs[Z - 1];
+    // removed to save memeory.
+    // vector<tPoint2d> values = tcs[Z - 1];
+    // energy divided by 1000 as we get it in KeV but vector entries are in MeV
     float sigma_k, sigma_k_plus_1, e_k, e_k_plus_1;
+    for( int i = 0; i != tcs[Z - 1].size(); i++) {
+        if ((energy/1000) > tcs[Z - 1][i].x) continue;
+        e_k = tcs[Z - 1][i-1].x;
+        sigma_k = tcs[Z - 1][i-1].y;
 
-    for(vector<tPoint2d>::size_type i = 0; i != values.size(); i++) {
-        if (energy > values[i].x) continue;
-        e_k = values[i-1].x;
-        sigma_k = values[i-1].y;
-
-        e_k_plus_1 = values[i].x;
-        sigma_k_plus_1 = values[i].y;
+        e_k_plus_1 = tcs[Z - 1][i].x;
+        sigma_k_plus_1 = tcs[Z - 1][i].y;
         break;
     }
-    return sigma_k * ::exp(log(sigma_k_plus_1 / sigma_k) * (log(energy/e_k)/log(e_k_plus_1/e_k)));
+    return sigma_k * ::exp(log(sigma_k_plus_1 / sigma_k) * (log((energy/1000)/e_k)/log(e_k_plus_1/e_k)));
 }
