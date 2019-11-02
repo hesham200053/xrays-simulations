@@ -60,6 +60,7 @@ const double &cMaterial::getDensity() {
     return density;
 }
 
+// the units here are pretty important
 double cMaterial::getAttCoeff(double energy) {
     cAtomicData atomicData;
     atomicData.prepare();
@@ -69,11 +70,12 @@ double cMaterial::getAttCoeff(double energy) {
         sum_sigK_fk += atomicData.getTotalCrossSection(v, energy) * fraction[i];
         sum_ak_fk += atomicData.getStdAtomicWeight(v) * fraction[i++];
     }
-    return density * Na * (sum_sigK_fk/sum_ak_fk);
+    return density * Na * (sum_sigK_fk/sum_ak_fk) * pow(10,-22) ;
 }
 
 // preparing the attenuation spectrum after a specific material
 void cMaterial::getAttSpec(std::vector<double> &spec, double minEnergy, double tubeVoltage, unsigned energySteps) {
+//    double step = ::ceil((tubeVoltage - minEnergy) / energySteps);
     double step = (tubeVoltage - minEnergy) / energySteps;
     double energy = minEnergy;
     while ( energy < tubeVoltage ) {

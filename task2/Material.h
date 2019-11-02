@@ -11,7 +11,7 @@
 #include <cmath>
 
 static const double Na = 6.022140857e23;
-
+//static const double Na = pow(6.022140857, 23);
 class cMaterial {
 private:
     std::vector<unsigned> Z;            // each element std atomic number

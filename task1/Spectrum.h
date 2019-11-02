@@ -6,6 +6,7 @@
 #define SPECTRUM_SPECTRUM_H
 
 #include <vector>
+#include <string>
 
 class cSpectrum {
 private:
@@ -22,16 +23,18 @@ public:
     cSpectrum &operator=(double value);
     cSpectrum &operator=(const std::vector<double > &newSpec);
     cSpectrum &operator=(const cSpectrum &newSpec);
-    cSpectrum &operator+(const cSpectrum &summand);
+    cSpectrum &operator+=(const cSpectrum &summand);
     // multiplying vectors element wise
-    cSpectrum &operator*(const cSpectrum &factor);
+    cSpectrum &operator*=(const cSpectrum &factor);
     // kind like a scalar for the whole vector ?
-    cSpectrum &operator*(double factor);
+    cSpectrum &operator*=(double factor);
     cSpectrum &exp();
     double sum();
     void readSpectrum(const std::string &fname, double tubeVoltage,
                       double &minEnergy, std::string &spectrumName);
 
+    // emil main
+    // friend void testSpectrum();
 };
 
 #endif //SPECTRUM_SPECTRUM_H

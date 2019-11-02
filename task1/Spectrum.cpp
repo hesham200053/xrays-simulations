@@ -45,7 +45,7 @@ cSpectrum &cSpectrum::operator=(const cSpectrum &newSpec) {
     spec = newSpec.spec;
     return *this;
 }
-cSpectrum &cSpectrum::operator+(const cSpectrum &summand) {
+cSpectrum &cSpectrum::operator+=(const cSpectrum &summand) {
     if (spec.size() != summand.spec.size())
         throw runtime_error("adding spectra of different sizes not possible");
     for (unsigned i = 0; i < spec.size() ; i++) {
@@ -54,7 +54,7 @@ cSpectrum &cSpectrum::operator+(const cSpectrum &summand) {
     return *this;
 }
 // multiplying vectors element wise
-cSpectrum &cSpectrum::operator*(const cSpectrum &factor) {
+cSpectrum &cSpectrum::operator*=(const cSpectrum &factor) {
     if (spec.size() != factor.spec.size())
         throw runtime_error("multiplying spectra of different sizes not possible");
     for (unsigned i = 0; i < spec.size() ; i++) {
@@ -63,7 +63,7 @@ cSpectrum &cSpectrum::operator*(const cSpectrum &factor) {
     return *this;
 }
 // kind like a scaler for the whole vector ?
-cSpectrum &cSpectrum::operator*(double factor) {
+cSpectrum &cSpectrum::operator*=(double factor) {
     for (unsigned i = 0; i < spec.size() ; i++) {
         spec[i] *= factor;
     }
@@ -72,13 +72,13 @@ cSpectrum &cSpectrum::operator*(double factor) {
 // ??
 cSpectrum &cSpectrum::exp() {
     for (unsigned i = 0; i < spec.size() ; i++) {
-        spec[i] = ::exp(spec[i]);
+        spec[i] = std::exp(spec[i]);
     }
     return *this;
 }
 
 double cSpectrum::sum() {
-    double result;
+    double result = 0;
     for (unsigned i = 0; i < spec.size() ; i++) {
         result += spec[i];
     }
@@ -92,7 +92,7 @@ void cSpectrum::readSpectrum(const string &fname, double tubeVoltage,
     bool valueFound = false;
     // open file
     inp.open(fname, ios::binary);
-    if(!inp.is_open()) throw runtime_error(" file couldn't be opened");
+    if(!inp.is_open()) throw runtime_error( fname + " couldn't be opened");
 
     // 1- title
     char title[15];
@@ -136,8 +136,10 @@ void cSpectrum::readSpectrum(const string &fname, double tubeVoltage,
             valueFound = true;
             cout << spectrumName << " spectra values for minimum energy of " << minEnergy <<
             " and a tube voltage of " << tubeVoltage << endl;
+            spec.resize(Nt);
             for (int j = 0; j < Nt; j++) {
                 inp.read((char*) &tableEntry, sizeof(tableEntry));
+                spec[j] = tableEntry;
                 // for debugging reasons 
                 // cout << j << ": " << tableEntry << endl;
             }

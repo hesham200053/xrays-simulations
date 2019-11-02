@@ -21,8 +21,8 @@ void cAtomicData::prepare() {
     ifstream inp;
     bool valueFound = false;
     // open file
-    inp.open("/Users/Hesham/CLionProjects/Spectrum/task2/totalCrossSection.dat", ios::binary);
-    if(!inp.is_open()) throw runtime_error(" file couldn't be opened");
+    inp.open("/Users/Hesham/CLionProjects/xrays-simulations/task2/totalCrossSection.dat", ios::binary);
+    if(!inp.is_open()) throw runtime_error(" totalCrossSection.dat couldn't be opened");
 
     // 1- title
     char title[12];
