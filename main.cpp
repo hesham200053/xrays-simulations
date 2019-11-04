@@ -9,7 +9,8 @@ int main() {
     try {
         // task 1
         // testTask1();
-        testTask2();
+//        testTask2();
+        testMinDestToOrigin();
 //        testH2O();
         // task 2
         // testTask2();

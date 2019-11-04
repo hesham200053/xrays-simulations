@@ -84,6 +84,7 @@ void cMaterial::getAttSpec(std::vector<double> &spec, double minEnergy, double t
     }
 }
 
+
 double cMaterial::getMeanFreePath(double energy) {
     return 1 / getAttCoeff(energy);
 }
