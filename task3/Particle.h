@@ -10,9 +10,10 @@
 
 const int array_size = 3;
 class cParticle {
+friend void testParticle();
 private:
-    double position[array_size];
-    double direction[array_size];
+    double p[array_size];
+    double u[array_size];
     void setElements(double src[array_size], const double *dest, double x = 0, double y = 0, double z = 0) const;
 public:
     cParticle();

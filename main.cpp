@@ -10,7 +10,8 @@ int main() {
         // task 1
         // testTask1();
 //        testTask2();
-        testMinDestToOrigin();
+        testParticle();
+//        testMinDestToOrigin();
 //        testH2O();
         // task 2
         // testTask2();

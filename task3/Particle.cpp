@@ -11,46 +11,46 @@ cParticle::cParticle() {
 cParticle::cParticle(const cParticle &particle) {
     for(int i = 0; i < array_size; ++i)
     {
-        this->position[i] = particle.position[i];
-        this->direction[i] = particle.direction[i];
+        this->p[i] = particle.p[i];
+        this->u[i] = particle.u[i];
     }
 }
 
 
 void cParticle::getPosition(double &x, double &y, double &z) const {
-    x = this->position[0];
-    y = this->position[1];
-    z = this->position[2];
+    x = this->p[0];
+    y = this->p[1];
+    z = this->p[2];
 }
 
 void cParticle::getDirection(double &x, double &y, double &z) const {
-    x = this->direction[0];
-    y = this->direction[1];
-    z = this->direction[2];
+    x = this->u[0];
+    y = this->u[1];
+    z = this->u[2];
 }
 
 void cParticle::setPosition(double x, double y, double z) {
-    setElements(this->position, NULL, x,y,z);
+    setElements(this->p, NULL, x,y,z);
 }
 
 void cParticle::setDirection(double x, double y, double z) {
-    setElements(this->direction,NULL,x,y,z);
+    setElements(this->u,NULL,x,y,z);
 }
 
 void cParticle::getPosition(double *p) const {
-    setElements(p, this->position);
+    setElements(p, this->p);
 
 }
 void cParticle::setDirection(double *d) {
-    setElements(this->direction, d);
+    setElements(this->u, d);
 }
 
 void cParticle::getDirection(double *d) const {
-    setElements(d, this->direction);
+    setElements(d, this->u);
 }
 
 void cParticle::setPosition(double *p) {
-    setElements(this->position, p);
+    setElements(this->p, p);
 }
 
 void cParticle::setElements(double *src, const double *dest, double x, double y, double z) const {
@@ -82,19 +82,19 @@ double cParticle::dot(const double *arr1, const double *arr2) const {
 }
 
 double cParticle::minDistToOrigin() const {
-    double planeEquation[array_size] = {1,1,1};
-    getDirection(planeEquation);
+//    you may need plane equation in case of a general use case
+//    double planeEquation[array_size] = {};
+//    getDirection(planeEquation);
     // for origin planes, use 0 for planes passing by the origin
-    double d = 6  ;
-    double lambda = (d - dot(planeEquation, this->position)) /  dot(planeEquation, this->direction);
+    double d = 0  ;
+    double lambda = (d - dot(u, p)) /  dot(u, u);
     double intersectionPoint[array_size] = {};
     for(int i = 0; i < array_size; ++i) {
-        intersectionPoint[i] = lambda*this->direction[i] + this->position[i];
+        intersectionPoint[i] = lambda * u[i] + p[i];
     }
-
-    return std::sqrt(std::pow(intersectionPoint[0],2) +
-                     std::pow(intersectionPoint[1],2) +
-                     std::pow(intersectionPoint[2],2));
+    return std::sqrt(intersectionPoint[0] * intersectionPoint[0] +
+                     intersectionPoint[1] * intersectionPoint[1] +
+                     intersectionPoint[2] * intersectionPoint[2] );
 }
 
 
