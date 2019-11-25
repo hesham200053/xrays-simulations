@@ -162,17 +162,26 @@ void testParticle() {
         double d;		// calculated distance
 
         // random position, direction and point
-        pos[0] = rand()*1.0 / RAND_MAX;
-        pos[1] = rand()*1.0 / RAND_MAX;
-        pos[2] = rand()*1.0 / RAND_MAX;
+//        pos[0] = rand()*1.0 / RAND_MAX;
+//        pos[1] = rand()*1.0 / RAND_MAX;
+//        pos[2] = rand()*1.0 / RAND_MAX;
+        pos[0] = 1;
+        pos[1] = 0;
+        pos[2] = 1;
         polar = acos(1 - rand()*2.0 / RAND_MAX);
         azimuth = rand()*2.0*M_PI / RAND_MAX;
-        dir[0] = sin(azimuth)*sin(polar);
-        dir[1] = cos(azimuth)*sin(polar);
-        dir[2] = cos(polar);
-        point[0] = rand()*1.0 / RAND_MAX;
-        point[1] = rand()*1.0 / RAND_MAX;
-        point[2] = rand()*1.0 / RAND_MAX;
+        dir[0] = 3;
+        dir[1] = -2;
+        dir[2] = 1;
+//        dir[0] = sin(azimuth)*sin(polar);
+//        dir[1] = cos(azimuth)*sin(polar);
+//        dir[2] = cos(polar);
+        point[0] = 3 ;
+        point[1] = 4 ;
+        point[2] = 6 ;
+//        point[0] = rand()*1.0 / RAND_MAX;
+//        point[1] = rand()*1.0 / RAND_MAX;
+//        point[2] = rand()*1.0 / RAND_MAX;
 
         // set parameters and evaluate distance
         a.setPosition(pos);
@@ -184,10 +193,13 @@ void testParticle() {
         d = sqrt(x*x + y*y + z*z);
 
         // perform tests and check results
-//        if (fabs(a.minDist2Point(point) - d) > 1e-10)
-//            throw runtime_error("Bad distance to origin.");
-//        if (fabs(a.minDist2Point(point[0], point[1], point[2]) - d) > 1e-10)
-//            throw runtime_error("Bad distance to origin.");
+        if (fabs(a.minDist2Point(point) - d) > 1e-10){
+//            cout << a.minDistToOrigin()<< endl;
+//            cout << a.minDist2Point(point) << ",  "<< d << endl;
+            throw runtime_error("Bad distance to point.");
+        }
+        if (fabs(a.minDist2Point(point[0], point[1], point[2]) - d) > 1e-10)
+            throw runtime_error("Bad distance to point.");
     }
     cout << "  finished" << endl;
 }

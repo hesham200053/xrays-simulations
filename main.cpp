@@ -2,20 +2,25 @@
 #include "task1/Tests.h"
 #include "task2/Tests.h"
 #include "task3/Tests.h"
+#include "task4/Tests.h"
+#include "task5/Tests.h"
 
+//void testMedImage();
+void testRandom();
 using namespace std;
 
 int main() {
     try {
-        // task 1
-        // testTask1();
+//        testTask1();
 //        testTask2();
-        testParticle();
+//        testParticle();
 //        testMinDestToOrigin();
 //        testH2O();
-        // task 2
-        // testTask2();
-        // testParticle();
+//        testTask2();
+//        testParticle();
+//        testMedImage();
+        testSimulation();
+//        testRandom();
 
     } catch (exception &exc) {
         cout << "ERROR:_" << exc.what() << endl;
@@ -24,3 +29,4 @@ int main() {
     }
     return 0;
 }
+

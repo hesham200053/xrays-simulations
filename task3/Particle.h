@@ -15,7 +15,8 @@ private:
     double p[array_size];
     double u[array_size];
     void setElements(double src[array_size], const double *dest, double x = 0, double y = 0, double z = 0) const;
-public:
+    double magnitude(const double *point) const;
+ public:
     cParticle();
     cParticle(const cParticle &particle);
 

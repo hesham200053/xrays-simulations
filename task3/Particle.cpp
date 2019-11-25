@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include "Particle.h"
+#include <iostream>
 
 cParticle::cParticle() {
 
@@ -81,6 +82,11 @@ double cParticle::dot(const double *arr1, const double *arr2) const {
     return result;
 }
 
+double cParticle::magnitude(const double *point) const {
+    return std::sqrt(point[0] * point[0] +
+                     point[1] * point[1] +
+                     point[2] * point[2] );
+};
 double cParticle::minDistToOrigin() const {
 //    you may need plane equation in case of a general use case
 //    double planeEquation[array_size] = {};
@@ -92,9 +98,35 @@ double cParticle::minDistToOrigin() const {
     for(int i = 0; i < array_size; ++i) {
         intersectionPoint[i] = lambda * u[i] + p[i];
     }
-    return std::sqrt(intersectionPoint[0] * intersectionPoint[0] +
-                     intersectionPoint[1] * intersectionPoint[1] +
-                     intersectionPoint[2] * intersectionPoint[2] );
+    return magnitude(intersectionPoint);
+}
+
+double cParticle::minDist2Point(double x, double y, double z) const {
+    double temp[array_size] = {x,y,z};
+    return minDist2Point(temp);
+}
+
+//CD = |ABxAC| / |AB|
+double cParticle::minDist2Point(double *point) const {
+//    double d = u[0] * (p[0]-point[0]) + u[1] * (p[1]-point[1]) + u[2] * (p[2]-point[2]) ;
+
+//    double lambda = (d - dot(u, p)) /  dot(u, u);
+//    double intersectionPoint[array_size] = {};
+//    for(int i = 0; i < array_size; ++i) {
+//        intersectionPoint[i] = lambda * u[i] + p[i];
+//    }
+//    double distance[array_size] = {intersectionPoint[0] - point[0],
+//                                   intersectionPoint[1] - point[1],
+//                                   intersectionPoint[2] - point[2]};
+//    return magnitude(distance);
+
+    double d = u[0] * (p[0]-point[0]) + u[1] * (p[1]-point[1]) + u[2] * (p[2]-point[2]);
+    double x = p[0] - point[0] - u[0] * d;
+    double y = p[1] - point[1] - u[1] * d;
+    double z = p[2] - point[2] - u[2] * d;
+    d = sqrt(x*x + y*y + z*z);
+    return d;
+
 }
 
 

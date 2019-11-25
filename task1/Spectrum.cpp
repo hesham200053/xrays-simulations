@@ -72,7 +72,7 @@ cSpectrum &cSpectrum::operator*=(double factor) {
 // ??
 cSpectrum &cSpectrum::exp() {
     for (unsigned i = 0; i < spec.size() ; i++) {
-        spec[i] = std::exp(spec[i]);
+        spec[i] = ::exp(spec[i]);
     }
     return *this;
 }
@@ -115,21 +115,24 @@ void cSpectrum::readSpectrum(const string &fname, double tubeVoltage,
     // 4- spectra number
     uint32_t Ns;
     inp.read((char*) &Ns, sizeof(Ns));
-    // cout << "Ns: " << Ns << endl;
+     cout << "Ns: " << Ns << endl;
 
     for (int i = 0 ; i < Ns ; i++) {
         float tVoltage;
         inp.read((char*) &tVoltage, sizeof(tVoltage));
+//        cout << "tvoltage, " << tVoltage << endl;
 
         // minimum Energy
         float mEnergy;
         inp.read((char*) &mEnergy, sizeof(mEnergy));
-        // cout << tVoltage << ", " << mEnergy << endl;
+//        cout << "minEnergy, " << mEnergy << endl;
+
         minEnergy = mEnergy;
 
         // table length
         uint32_t Nt;
         inp.read((char*) &Nt, sizeof(Nt));
+//        cout << "nt, " << Nt << endl;
 
         float tableEntry;
         if (fabs(tVoltage - tubeVoltage) < 1e-3) {
@@ -141,7 +144,7 @@ void cSpectrum::readSpectrum(const string &fname, double tubeVoltage,
                 inp.read((char*) &tableEntry, sizeof(tableEntry));
                 spec[j] = tableEntry;
                 // for debugging reasons 
-                // cout << j << ": " << tableEntry << endl;
+//                 cout << j << ": " << tableEntry << endl;
             }
         }  else {
             //skip this entry
