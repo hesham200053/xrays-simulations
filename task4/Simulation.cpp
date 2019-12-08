@@ -53,9 +53,9 @@ void cSimulation::prepare() {
     // multiply the spec by the corresponding energy
     // ambiguous
     double step = (tubeVoltage - minEnergy) / xRayTube.size();
-    for(signed i = 0; i < xRayTube.size(); i++ ) {
+    for(signed i = 0; i < xRayTube.size() ; i++ ) {
         energy[i] = (minEnergy + step*i);
-        xRayTube *= energy[i];
+//        xRayTube *= energy[i];
     }
     // the Z component of the tubePos is the distance between the tube and the detector. ????
     double f = ((pixelSize*pixelSize) / (tubePos[2] * tubePos[2])) * 1000000;
@@ -71,6 +71,8 @@ void cSimulation::prepare() {
     water.setName("water particle");
     water.getAttSpec(spec, minEnergy, tubeVoltage, xRayTube.size());
     attCoeff = spec;
+    // attCoeff is 101  ????
+//    attCoeff.resize(100);
 }
 
 void cSimulation::setCurrentTimeProduct(double currentTimeProduct) {
@@ -85,6 +87,7 @@ void cSimulation::simulate(cMedImage<double> &image) {
     double t = 0;
     double sum;
     double stdev;
+//    double newSum;
     cRandKiss kiss((uint32_t)time(NULL));
     cRandNormal normal(kiss);
     normal.prepare();
@@ -106,9 +109,9 @@ void cSimulation::simulate(cMedImage<double> &image) {
             I *= -t;
             I.exp();
             I *= xRayTube;
-            sum = I.sum();
 
             I *= energy;
+            sum = I.sum();
             stdev = sqrt(sum);
             sum += stdev*normal.rand();
 

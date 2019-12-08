@@ -78,7 +78,7 @@ void cMaterial::getAttSpec(std::vector<double> &spec, double minEnergy, double t
 //    double step = ::ceil((tubeVoltage - minEnergy) / energySteps);
     double step = (tubeVoltage - minEnergy) / energySteps;
     double energy = minEnergy;
-    while ( energy < tubeVoltage ) {
+    while ( energy + step/2 < tubeVoltage ) {
         spec.push_back(getAttCoeff(energy));
         energy += step;
     }

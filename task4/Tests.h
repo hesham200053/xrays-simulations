@@ -36,16 +36,15 @@ void testSimulation() {
 //    image.nCol = 50;
 //    image.nRow = 50;
     cSimulation simulation;
-//    simulation.setTubeVoltage(40);
-//    simulation.setCurrentTimeProduct(1);
-//    simulation.setSphereRadious(0.0025);
-//    simulation.setPixelSize(0.00015);
-//    simulation.setPixelSize(50);
+    simulation.setTubeVoltage(40);
+    simulation.setCurrentTimeProduct(1);
+    simulation.setSphereRadious(0.0025);
+    simulation.setPixelSize(0.00015);
     simulation.prepare();
     simulation.simulate(image);
     image.autoWindowing();
-    cMedImageIO<double>::writeBmp(image,"first.bmp");
-//    cMedImageIO<double>::writeBmp(image,"secsdond.bmp");
+//    cMedImageIO<double>::writeBmp(image,"first.bmp");
+    cMedImageIO<double>::writeBmp(image,"second.bmp");
 
 }
 //#endif //XRAYS_SIMULATIONS_TESTS_H
